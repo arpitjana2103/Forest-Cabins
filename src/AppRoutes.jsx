@@ -5,14 +5,14 @@ import {
     RouterProvider,
 } from "react-router-dom";
 
-import Users from "./pages/Users";
-import Login from "./pages/Login";
-import Cabins from "./pages/Cabins.page";
-import Account from "./pages/Account";
-import Bookings from "./pages/Bookings";
-import Settings from "./pages/Settings";
-import Dashboard from "./pages/Dashboard";
-import PageNotFound from "./pages/PageNotFound";
+import UsersPage from "./pages/UsersPage";
+import LoginPage from "./pages/LoginPage";
+import CabinsPage from "./pages/CabinsPage";
+import AccountPage from "./pages/AccountPage";
+import BookingsPage from "./pages/BookingsPage";
+import SettingsPage from "./pages/SettingsPage";
+import DashboardPage from "./pages/DashboardPage";
+import PageNotFoundPage from "./pages/PageNotFoundPage";
 
 import AppLayout from "./ui/AppLayout";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -39,16 +39,16 @@ const router = createBrowserRouter([
         element: <AppLayout />,
         children: [
             { path: "/", element: <Navigate replace to="dashboard" /> },
-            { path: "/dashboard", element: <Dashboard /> },
-            { path: "/settings", element: <Settings /> },
-            { path: "/bookings", element: <Bookings /> },
-            { path: "/account", element: <Account /> },
-            { path: "/cabins", element: <Cabins /> },
-            { path: "/users", element: <Users /> },
+            { path: "/dashboard", element: <DashboardPage /> },
+            { path: "/settings", element: <SettingsPage /> },
+            { path: "/bookings", element: <BookingsPage /> },
+            { path: "/account", element: <AccountPage /> },
+            { path: "/cabins", element: <CabinsPage /> },
+            { path: "/users", element: <UsersPage /> },
         ],
     },
-    { path: "/login", element: <Login /> },
-    { path: "*", element: <PageNotFound /> },
+    { path: "/login", element: <LoginPage /> },
+    { path: "*", element: <PageNotFoundPage /> },
 ]);
 
 function AppRoutes() {

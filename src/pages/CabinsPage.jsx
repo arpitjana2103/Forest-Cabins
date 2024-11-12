@@ -1,6 +1,7 @@
-import Heading from "../ui/Heading";
+import Heading from "../ui/styled-elements/Heading";
 import CabinTable from "../features/cabins/CabinTable";
-import Align from "../ui/Align";
+import Align from "../ui/styled-elements/Align";
+import Button from "../ui/styled-elements/Button";
 
 function Cabins() {
     return (
@@ -11,6 +12,8 @@ function Cabins() {
             </Align>
 
             <CabinTable />
+
+            <Button>Create New Cabin</Button>
         </>
     );
 }
