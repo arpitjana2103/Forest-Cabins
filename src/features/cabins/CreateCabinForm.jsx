@@ -20,7 +20,7 @@ const Error = styled.span`
 `;
 
 function CreateCabinForm() {
-    const { register, handleSubmit, reset, getValues, formState } = useForm();
+    const { register, handleSubmit, reset, formState } = useForm();
     const { errors } = formState;
 
     const queryClient = useQueryClient();
@@ -40,6 +40,7 @@ function CreateCabinForm() {
     });
 
     function onSubmit(data) {
+        data = { ...data, image: data.image[0] };
         createCabinMutation(data);
     }
 
@@ -135,10 +136,20 @@ function CreateCabinForm() {
                 )}
             </FormRow>
 
-            {/* <FormRow>
+            <FormRow>
                 <Label htmlFor="image">Cabin photo</Label>
-                <FileInput id="image" accept="image/*" />
-            </FormRow> */}
+                <FileInput
+                    disabled={isCreating}
+                    id="image"
+                    accept="image/*"
+                    {...register("image", {
+                        required: "Please select an image file.",
+                    })}
+                />
+                {errors?.image?.message && (
+                    <Error>{errors.image.message}</Error>
+                )}
+            </FormRow>
 
             <FormRow>
                 {/* type is an HTML attribute! */}
