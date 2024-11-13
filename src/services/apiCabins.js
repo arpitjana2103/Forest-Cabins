@@ -68,10 +68,45 @@ export async function createCabin(newCabin) {
     if (storageError) {
         console.log(storageError);
         await deleteCabin(data[0].id);
-        throw new Error(
-            "Issue with Image Upload. Cabin could not be created.."
-        );
+        throw new Error("Failed to upload image. Cabin could not be created..");
     }
 
+    return data;
+}
+
+export async function editCabin(newCabin, id) {
+    // 1. Edit Cabin
+    const haveImageFile = typeof newCabin.image !== "string";
+    let [imageFile, imageName] = [null, null];
+
+    if (haveImageFile) {
+        imageFile = newCabin.image;
+        imageName = createImageName(newCabin.image.name);
+        newCabin.image = `${bucketPath}/${imageName}`;
+    }
+
+    const { data, error } = await supabase
+        .from("cabins")
+        .update(newCabin)
+        .eq("id", id)
+        .select();
+
+    if (error) {
+        console.log(error);
+        throw new Error("Cabin could not be edited..");
+    }
+
+    // 2. Delete Prev Image ( Handle at backend )
+    // 3. Upload Image
+    if (haveImageFile) {
+        const { error: storageError } = await supabase.storage
+            .from("cabin-images")
+            .upload(imageName, imageFile);
+
+        if (storageError) {
+            console.log(storageError);
+            throw new Error("Failed to upload image.");
+        }
+    }
     return data;
 }

@@ -4,7 +4,7 @@ import Heading from "../ui/styled-elements/Heading";
 import CabinTable from "../features/cabins/CabinTable";
 import Align from "../ui/styled-elements/Align";
 import Button from "../ui/styled-elements/Button";
-import CreateCabinForm from "../features/cabins/CreateCabinForm";
+import CreateCabinForm from "../features/cabins/CabinForm";
 
 function Cabins() {
     const [showForm, setShowForm] = useState(false);
