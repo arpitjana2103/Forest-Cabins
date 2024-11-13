@@ -1,7 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
 
 import Form from "../../ui/styled-elements/Form";
 import Label from "../../ui/styled-elements/Label";
@@ -11,7 +9,8 @@ import FormRow from "../../ui/styled-elements/FormRow";
 import Textarea from "../../ui/styled-elements/Textarea";
 import FileInput from "../../ui/styled-elements/FileInput";
 
-import { createCabin, editCabin } from "../../services/apiCabins";
+import useCreateCabin from "./useCreateCabin";
+import useEditCabin from "./useEditCabin";
 
 const Error = styled.span`
     font-size: 1.4rem;
@@ -28,38 +27,8 @@ function CabinForm({ cabinToEdit = {} }) {
     });
     const { errors } = formState;
 
-    const queryClient = useQueryClient();
-
-    const { isPending: isCreating, mutate: createCabinMutation } = useMutation({
-        mutationFn: (newCabin) => createCabin(newCabin),
-        onSuccess: () => {
-            toast.success("New Cabin Created.");
-            queryClient.invalidateQueries({
-                queryKey: ["cabins"],
-            });
-            reset();
-        },
-        onError: (err) => {
-            toast.error(err.message);
-        },
-    });
-
-    const { isPending: isEditing, mutate: editCabinMutation } = useMutation({
-        mutationFn: ({ newCabin, id }) => editCabin(newCabin, id),
-        onSuccess: () => {
-            toast.success("Cabin Edited.");
-            queryClient.invalidateQueries({
-                queryKey: ["cabins"],
-            });
-        },
-        onError: (err) => {
-            toast.error(err.message);
-            queryClient.invalidateQueries({
-                queryKey: ["cabins"],
-            });
-        },
-    });
-
+    const { isCreating, createCabin } = useCreateCabin();
+    const { isEditing, editCabin } = useEditCabin();
     const isWorking = isEditing || isCreating;
 
     function onSubmit(data) {
@@ -69,11 +38,11 @@ function CabinForm({ cabinToEdit = {} }) {
         }
 
         if (!isEditSession) {
-            createCabinMutation(data);
+            createCabin(data, { onSuccess: () => reset() });
         }
 
         if (isEditSession) {
-            editCabinMutation({ newCabin: data, id: editId });
+            editCabin({ newCabin: data, id: editId });
         }
     }
 
