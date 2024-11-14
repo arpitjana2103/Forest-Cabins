@@ -4,8 +4,12 @@ import GlobalStyles from "./styles/GlobalStyles.jsx";
 import AppRoutes from "./AppRoutes.jsx";
 
 createRoot(document.getElementById("root")).render(
-    <StrictMode>
+    <>
         <GlobalStyles />
         <AppRoutes />
-    </StrictMode>
+    </>
+    // <StrictMode>
+    //     <GlobalStyles />
+    //     <AppRoutes />
+    // </StrictMode>
 );
