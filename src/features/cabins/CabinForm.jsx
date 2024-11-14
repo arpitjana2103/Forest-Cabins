@@ -9,7 +9,7 @@ import FormRow from "../../ui/styled-elements/FormRow";
 import Textarea from "../../ui/styled-elements/Textarea";
 import FileInput from "../../ui/styled-elements/FileInput";
 
-import useCreateCabin from "./useCreateCabin";
+import { useCreateCabin } from "./useCreateCabin";
 import useEditCabin from "./useEditCabin";
 
 const Error = styled.span`
