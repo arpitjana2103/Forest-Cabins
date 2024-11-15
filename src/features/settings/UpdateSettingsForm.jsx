@@ -1,21 +1,16 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
 
+import FormError from "../../ui/FormError";
 import Button from "../../ui/styled-elements/Button";
 import Form from "../../ui/styled-elements/Form";
 import FormRow from "../../ui/styled-elements/FormRow";
 import Input from "../../ui/styled-elements/Input";
 import Label from "../../ui/styled-elements/Label";
 import Spinner from "../../ui/styled-elements/Spinner";
+
 import useEditSettings from "./useEditSettings";
 import useSettings from "./useSettings";
-
-const Error = styled.span`
-    font-size: 1.4rem;
-    color: var(--color-red-700);
-    grid-column: 2 / -1;
-`;
 
 function isEqual(obj1, obj2) {
     for (const key in obj1) {
@@ -69,10 +64,9 @@ function UpdateSettingsForm() {
                         required: "This field is required.",
                     })}
                 />
-                {errors?.minBookingLength?.message && (
-                    <Error>{errors.minBookingLength.message}</Error>
-                )}
+                <FormError error={errors?.minBookingLength?.message} />
             </FormRow>
+
             <FormRow>
                 <Label htmlFor="max-nights">Maximum nights/booking</Label>
                 <Input
@@ -84,10 +78,9 @@ function UpdateSettingsForm() {
                         required: "This field is required.",
                     })}
                 />
-                {errors?.maxBookingLength?.message && (
-                    <Error>{errors.maxBookingLength.message}</Error>
-                )}
+                <FormError error={errors?.maxBookingLength?.message} />
             </FormRow>
+
             <FormRow>
                 <Label htmlFor="max-guests">Maximum guests/booking</Label>
                 <Input
@@ -99,10 +92,9 @@ function UpdateSettingsForm() {
                         required: "This field is required.",
                     })}
                 />
-                {errors?.maxGuestsPerBooking?.message && (
-                    <Error>{errors.maxGuestsPerBooking.message}</Error>
-                )}
+                <FormError error={errors?.maxGuestsPerBooking?.message} />
             </FormRow>
+
             <FormRow>
                 <Label htmlFor="min-nights">Breakfast price</Label>
                 <Input
@@ -114,10 +106,9 @@ function UpdateSettingsForm() {
                         required: "This field is required.",
                     })}
                 />
-                {errors?.breakfastPrice?.message && (
-                    <Error>{errors.breakfastPrice.message}</Error>
-                )}
+                <FormError error={errors?.breakfastPrice?.message} />
             </FormRow>
+
             <FormRow>
                 <Button
                     disabled={isEditing || !updateRequired}

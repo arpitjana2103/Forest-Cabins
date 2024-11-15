@@ -1,22 +1,16 @@
-import styled from "styled-components";
 import { useForm } from "react-hook-form";
 
-import Form from "../../ui/styled-elements/Form";
-import Label from "../../ui/styled-elements/Label";
-import Input from "../../ui/styled-elements/Input";
+import FormError from "../../ui/FormError";
 import Button from "../../ui/styled-elements/Button";
-import FormRow from "../../ui/styled-elements/FormRow";
-import Textarea from "../../ui/styled-elements/Textarea";
 import FileInput from "../../ui/styled-elements/FileInput";
+import Form from "../../ui/styled-elements/Form";
+import FormRow from "../../ui/styled-elements/FormRow";
+import Input from "../../ui/styled-elements/Input";
+import Label from "../../ui/styled-elements/Label";
+import Textarea from "../../ui/styled-elements/Textarea";
 
 import { useCreateCabin } from "./useCreateCabin";
 import useEditCabin from "./useEditCabin";
-
-const Error = styled.span`
-    font-size: 1.4rem;
-    color: var(--color-red-700);
-    grid-column: 2 / -1;
-`;
 
 function CabinForm({ cabinToEdit = {} }) {
     const { id: editId, ...editValues } = cabinToEdit;
@@ -62,7 +56,7 @@ function CabinForm({ cabinToEdit = {} }) {
                         required: "This field is required.",
                     })}
                 />
-                {errors?.name?.message && <Error>{errors.name.message}</Error>}
+                <FormError error={errors?.name?.message} />
             </FormRow>
 
             <FormRow>
@@ -79,9 +73,7 @@ function CabinForm({ cabinToEdit = {} }) {
                         },
                     })}
                 />
-                {errors?.maxCapacity?.message && (
-                    <Error>{errors.maxCapacity.message}</Error>
-                )}
+                <FormError error={errors?.maxCapacity?.message} />
             </FormRow>
 
             <FormRow>
@@ -98,9 +90,7 @@ function CabinForm({ cabinToEdit = {} }) {
                         },
                     })}
                 />
-                {errors?.regularPrice?.message && (
-                    <Error>{errors.regularPrice.message}</Error>
-                )}
+                <FormError error={errors?.regularPrice?.message} />
             </FormRow>
 
             <FormRow>
@@ -117,9 +107,7 @@ function CabinForm({ cabinToEdit = {} }) {
                             "Discount should be less regular price",
                     })}
                 />
-                {errors?.discount?.message && (
-                    <Error>{errors.discount.message}</Error>
-                )}
+                <FormError error={errors?.discount?.message} />
             </FormRow>
 
             <FormRow>
@@ -133,9 +121,7 @@ function CabinForm({ cabinToEdit = {} }) {
                         required: "This field is required.",
                     })}
                 />
-                {errors?.description?.message && (
-                    <Error>{errors.description.message}</Error>
-                )}
+                <FormError error={errors?.description?.message} />
             </FormRow>
 
             <FormRow>
@@ -150,9 +136,7 @@ function CabinForm({ cabinToEdit = {} }) {
                             : "Please select an image file.",
                     })}
                 />
-                {errors?.image?.message && (
-                    <Error>{errors.image.message}</Error>
-                )}
+                <FormError error={errors?.image?.message} />
             </FormRow>
 
             <FormRow>

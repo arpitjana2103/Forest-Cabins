@@ -5,18 +5,18 @@ import {
     RouterProvider,
 } from "react-router-dom";
 
-import UsersPage from "./pages/UsersPage";
-import LoginPage from "./pages/LoginPage";
-import CabinsPage from "./pages/CabinsPage";
 import AccountPage from "./pages/AccountPage";
 import BookingsPage from "./pages/BookingsPage";
-import SettingsPage from "./pages/SettingsPage";
+import CabinsPage from "./pages/CabinsPage";
 import DashboardPage from "./pages/DashboardPage";
+import LoginPage from "./pages/LoginPage";
 import PageNotFoundPage from "./pages/PageNotFoundPage";
+import SettingsPage from "./pages/SettingsPage";
+import UsersPage from "./pages/UsersPage";
 
-import AppLayout from "./ui/AppLayout";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import AppLayout from "./ui/AppLayout";
 
 const queryClient = new QueryClient({
     defaultOptions: {
