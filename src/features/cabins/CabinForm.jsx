@@ -12,7 +12,7 @@ import Textarea from "../../ui/styled-elements/Textarea";
 import { useCreateCabin } from "./useCreateCabin";
 import useEditCabin from "./useEditCabin";
 
-function CabinForm({ cabinToEdit = {} }) {
+function CabinForm({ cabinToEdit = {}, onCloseModal }) {
     const { id: editId, ...editValues } = cabinToEdit;
     const isEditSession = editId !== undefined;
 
@@ -32,11 +32,23 @@ function CabinForm({ cabinToEdit = {} }) {
         }
 
         if (!isEditSession) {
-            createCabin(data, { onSuccess: () => reset() });
+            createCabin(data, {
+                onSuccess: () => {
+                    reset();
+                    onCloseModal?.();
+                },
+            });
         }
 
         if (isEditSession) {
-            editCabin({ newCabin: data, id: editId });
+            editCabin(
+                { newCabin: data, id: editId },
+                {
+                    onSuccess: () => {
+                        onCloseModal?.();
+                    },
+                }
+            );
         }
     }
 
@@ -45,7 +57,10 @@ function CabinForm({ cabinToEdit = {} }) {
     }
 
     return (
-        <Form onSubmit={handleSubmit(onSubmit, onError)}>
+        <Form
+            onSubmit={handleSubmit(onSubmit, onError)}
+            type={onCloseModal ? "modal" : "regular"}
+        >
             <FormRow>
                 <Label htmlFor="name">Cabin name</Label>
                 <Input
@@ -141,7 +156,11 @@ function CabinForm({ cabinToEdit = {} }) {
 
             <FormRow>
                 {/* type is an HTML attribute! */}
-                <Button $variation="secondary" type="reset">
+                <Button
+                    $variation="secondary"
+                    type="reset"
+                    onClick={() => onCloseModal?.()}
+                >
                     Cancel
                 </Button>
                 {!isEditSession && (

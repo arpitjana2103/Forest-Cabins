@@ -27,6 +27,12 @@ const Heading = styled.h1`
             font-size: 1rem;
             font-weight: 600;
         `}
+    
+    ${(props) =>
+        props.type === "secondary" &&
+        css`
+            color: var(--color-brand-700);
+        `}
 
     line-height: 1.4;
 `;
