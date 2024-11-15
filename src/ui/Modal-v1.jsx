@@ -2,7 +2,6 @@ import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 import Heading from "./styled-elements/Heading";
 import { createPortal } from "react-dom";
-import { cloneElement, createContext, useContext, useState } from "react";
 
 const StyledModal = styled.div`
     position: absolute;
@@ -71,60 +70,21 @@ const Button = styled.button`
     }
 `;
 
-const ModalContext = createContext();
-
-function Modal({ children }) {
-    const [content, setContent] = useState("");
-
-    const openContent = setContent;
-    const closeContent = () => setContent("");
-
-    return (
-        <ModalContext.Provider
-            value={{
-                content: content,
-                closeContent: closeContent,
-                openContent: openContent,
-            }}
-        >
-            {children}
-        </ModalContext.Provider>
-    );
-}
-
-function Open({ children, content }) {
-    const { openContent } = useContext(ModalContext);
-
-    return cloneElement(children, {
-        onClick: () => openContent(content),
-    });
-}
-
-function Window({ children, content: windowContent, title }) {
-    const { content, closeContent } = useContext(ModalContext);
-    if (content !== windowContent) return null;
-
+export default function Modal({ children, onClose, title }) {
     return createPortal(
         <Overlay>
             <StyledModal>
                 <Heading className="modal-heading" type="secondary" as="h2">
                     {title}
                 </Heading>
-                <Button onClick={closeContent}>
+                <Button onClick={onClose}>
                     <HiXMark />
                 </Button>
                 <div className="children-container">
-                    <div className="children">
-                        {cloneElement(children, { onCloseModal: closeContent })}
-                    </div>
+                    <div className="children">{children}</div>
                 </div>
             </StyledModal>
         </Overlay>,
         document.body
     );
 }
-
-Modal.Open = Open;
-Modal.Window = Window;
-
-export default Modal;
