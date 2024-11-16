@@ -171,7 +171,7 @@ function CabinForm({ cabinToEdit = {}, onCloseModal }) {
 
                 {isEditSession && (
                     <Button disabled={isWorking}>
-                        {isEditing ? "Editing..." : "Edit Cabin"}
+                        {isEditing ? "Updating..." : "Update Cabin"}
                     </Button>
                 )}
             </FormRow>
