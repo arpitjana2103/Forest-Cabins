@@ -7,7 +7,7 @@ export default function useEditSettings() {
     const { isPending: isEditing, mutate: editSettingsMutation } = useMutation({
         mutationFn: (newSettings) => updateSetting(newSettings),
         onSuccess: () => {
-            toast.success("Settings Edited.");
+            toast.success("Settings Updated");
             queryClient.invalidateQueries({
                 queryKey: ["settings"],
             });

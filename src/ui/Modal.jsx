@@ -2,7 +2,14 @@ import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 import Heading from "./styled-elements/Heading";
 import { createPortal } from "react-dom";
-import { cloneElement, createContext, useContext, useState } from "react";
+import {
+    cloneElement,
+    createContext,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 
 const StyledModal = styled.div`
     position: absolute;
@@ -101,11 +108,23 @@ function Open({ children, content }) {
 }
 
 function Window({ children, content: windowContent, title }) {
+    const ref = useRef();
     const { content, closeContent } = useContext(ModalContext);
-    if (content !== windowContent) return null;
 
+    useEffect(
+        function () {
+            function handleClick(e) {
+                if (ref.current && e.target === ref.current) closeContent();
+            }
+            document.addEventListener("click", handleClick);
+            return () => document.removeEventListener("click", handleClick);
+        },
+        [closeContent]
+    );
+
+    if (content !== windowContent) return null;
     return createPortal(
-        <Overlay>
+        <Overlay ref={ref}>
             <StyledModal>
                 <Heading className="modal-heading" type="secondary" as="h2">
                     {title}
