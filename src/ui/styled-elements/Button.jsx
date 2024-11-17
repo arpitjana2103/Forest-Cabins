@@ -37,6 +37,10 @@ const variations = {
         &:hover {
             background-color: var(--color-grey-50);
         }
+
+        &:focus {
+            outline: 2px solid var(--color-brand-600);
+        }
     `,
     danger: css`
         color: var(--color-red-100);
@@ -48,6 +52,21 @@ const variations = {
     `,
 };
 
+const types = {
+    icon: css`
+        padding: 0.4rem;
+        border: none;
+
+        &:hover {
+            background-color: var(--color-grey-200);
+        }
+
+        &:focus {
+            outline: none;
+        }
+    `,
+};
+
 const Button = styled.button`
     border: none;
     border-radius: var(--border-radius-sm);
@@ -55,11 +74,13 @@ const Button = styled.button`
 
     ${(props) => sizes[props.$size]}
     ${(props) => variations[props.$variation]}
+    ${(props) => types[props.$type]}
 `;
 
 Button.defaultProps = {
     $variation: "primary",
     $size: "medium",
+    $type: null,
 };
 
 export default Button;

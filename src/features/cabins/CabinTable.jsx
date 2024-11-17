@@ -1,22 +1,23 @@
 import CabinRow from "./CabinRow";
 import useCabins from "./useCabins";
-import styled from "styled-components";
 import Spinner from "../../ui/styled-elements/Spinner";
 import Table from "../../ui/Table";
 
 function CabinTable() {
     const { isLoading, cabins = [], error } = useCabins();
 
+    if (error) return <p>Cabins cannot be loaded !</p>;
+
     if (isLoading) return <Spinner />;
     return (
-        <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
+        <Table columns="6rem 1.8fr 2.2fr 1fr 1fr 4rem">
             <Table.Header>
-                <div>Image</div>
+                <div>{null}</div>
                 <div>Cabin</div>
                 <div>Capacity</div>
                 <div>Price</div>
                 <div>Discount</div>
-                <div>NULL</div>
+                <div></div>
             </Table.Header>
 
             <Table.Body

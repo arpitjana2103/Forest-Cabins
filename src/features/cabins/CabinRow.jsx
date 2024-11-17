@@ -2,12 +2,15 @@ import styled from "styled-components";
 import CreateCabinForm from "./CabinForm";
 import useDeleteCabin from "./useDeleteCabin";
 
-import { formatCurrency } from "../../utils/helpers";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
-import { useCreateDuplicateCabin } from "./useCreateCabin";
-import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Modal from "../../ui/Modal";
 import Table from "../../ui/Table";
+import { formatCurrency } from "../../utils/helpers";
+import { useCreateDuplicateCabin } from "./useCreateCabin";
+
+import Button from "../../ui/styled-elements/Button";
+import Menu from "../../ui/Menu";
 
 const Img = styled.img`
     display: block;
@@ -51,18 +54,25 @@ function CabinRow({ cabin }) {
                 <Discount>
                     {!discount ? "---" : formatCurrency(discount)}
                 </Discount>
-                <div>
-                    <button
-                        disabled={isCreating}
+                <Menu>
+                    <Menu.Item
                         onClick={() => createCabin(cabin)}
+                        disabled={isCreating}
                     >
-                        <HiSquare2Stack />
-                    </button>
+                        <span>
+                            <HiSquare2Stack />
+                        </span>
+                        <span>Duplicate</span>
+                    </Menu.Item>
+
                     <Modal>
                         <Modal.Open content="cabin-edit">
-                            <button>
-                                <HiPencil />
-                            </button>
+                            <Menu.Item>
+                                <span>
+                                    <HiPencil />
+                                </span>
+                                <span>Edit</span>
+                            </Menu.Item>
                         </Modal.Open>
                         <Modal.Window
                             content="cabin-edit"
@@ -74,9 +84,12 @@ function CabinRow({ cabin }) {
 
                     <Modal>
                         <Modal.Open content="delete-cabin">
-                            <button>
-                                <HiTrash />
-                            </button>
+                            <Menu.Item>
+                                <span>
+                                    <HiTrash />
+                                </span>
+                                <span>Delete</span>
+                            </Menu.Item>
                         </Modal.Open>
                         <Modal.Window
                             content="delete-cabin"
@@ -89,7 +102,7 @@ function CabinRow({ cabin }) {
                             />
                         </Modal.Window>
                     </Modal>
-                </div>
+                </Menu>
             </Table.Row>
         </>
     );
