@@ -54,8 +54,7 @@ const variations = {
 
 const types = {
     icon: css`
-        padding: 0.4rem;
-        border: none;
+        /* border: none; */
 
         &:hover {
             background-color: var(--color-grey-200);

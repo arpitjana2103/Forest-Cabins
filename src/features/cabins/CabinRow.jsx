@@ -8,9 +8,8 @@ import Modal from "../../ui/Modal";
 import Table from "../../ui/Table";
 import { formatCurrency } from "../../utils/helpers";
 import { useCreateDuplicateCabin } from "./useCreateCabin";
-
-import Button from "../../ui/styled-elements/Button";
 import Menu from "../../ui/Menu";
+import { HiDotsVertical } from "react-icons/hi";
 
 const Img = styled.img`
     display: block;
@@ -54,7 +53,7 @@ function CabinRow({ cabin }) {
                 <Discount>
                     {!discount ? "---" : formatCurrency(discount)}
                 </Discount>
-                <Menu>
+                <Menu icon={<HiDotsVertical />}>
                     <Menu.Item
                         onClick={() => createCabin(cabin)}
                         disabled={isCreating}

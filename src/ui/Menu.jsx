@@ -1,4 +1,3 @@
-import { HiDotsVertical } from "react-icons/hi";
 import Button from "./styled-elements/Button";
 import styled from "styled-components";
 
@@ -50,13 +49,13 @@ const Dropdown = styled.div.attrs({
 })`
     display: none;
     position: absolute;
-    top: 4rem;
-    right: 0rem;
+    top: 4.3rem;
+    right: -0.3rem;
     box-shadow: var(--shadow-lg);
     background-color: var(--color-grey-0);
     width: fit-content;
     z-index: 1;
-    border-radius: 0.5rem;
+    border-radius: 0.7rem;
     overflow: hidden;
     border: 1px solid var(--color-grey-100);
 `;
@@ -69,12 +68,10 @@ function Item({ children, onClick, disabled }) {
     );
 }
 
-function Menu({ children }) {
+function Menu({ children, icon }) {
     return (
         <StyledMenu>
-            <MenuButton>
-                <HiDotsVertical />
-            </MenuButton>
+            <MenuButton>{icon}</MenuButton>
             <Dropdown>{children}</Dropdown>
         </StyledMenu>
     );
