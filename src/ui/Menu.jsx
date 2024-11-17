@@ -49,13 +49,13 @@ const Dropdown = styled.div.attrs({
 })`
     display: none;
     position: absolute;
-    top: 4.3rem;
+    top: 4.2rem;
     right: -0.3rem;
     box-shadow: var(--shadow-lg);
     background-color: var(--color-grey-0);
     width: fit-content;
     z-index: 1;
-    border-radius: 0.7rem;
+    border-radius: var(--border-radius-sm);
     overflow: hidden;
     border: 1px solid var(--color-grey-100);
 `;
