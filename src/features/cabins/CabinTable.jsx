@@ -5,7 +5,9 @@ import Table from "../../ui/Table";
 import useUrlParam from "../../hooks/useUrlParam";
 
 function CabinTable() {
-    const { isLoading, cabins = [], error } = useCabins();
+    const { isLoading, cabins, error } = useCabins();
+    if (error) console.log(error);
+
     const { readParam } = useUrlParam();
 
     const filterValue = readParam("discount") || "all";
@@ -13,13 +15,13 @@ function CabinTable() {
 
     let filteredCabins = [];
     if (filterValue === "all") {
-        filteredCabins = cabins;
+        filteredCabins = cabins || [];
     }
     if (filterValue === "no-discount") {
-        filteredCabins = cabins.filter((cabin) => cabin.discount === 0);
+        filteredCabins = cabins?.filter((cabin) => cabin.discount === 0) || [];
     }
     if (filterValue === "with-discount") {
-        filteredCabins = cabins.filter((cabin) => cabin.discount !== 0);
+        filteredCabins = cabins?.filter((cabin) => cabin.discount !== 0) || [];
     }
 
     let sortedCabins = filteredCabins;
@@ -29,7 +31,6 @@ function CabinTable() {
         return modifier * (a[sortByField] - b[sortByField]);
     });
 
-    if (error) return <p>Cabins cannot be loaded !</p>;
     if (isLoading) return <Spinner />;
     return (
         <Table columns="6rem 1.8fr 2.2fr 1fr 1fr 4rem">

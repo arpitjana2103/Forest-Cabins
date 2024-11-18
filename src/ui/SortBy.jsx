@@ -3,7 +3,7 @@ import Select from "./Select";
 
 function SortBy({ options }) {
     const { readParam, setParam } = useUrlParam();
-    const sortedBy = readParam("sortBy") || "name-asc";
+    const sortedBy = readParam("sortBy") || "";
 
     function handleChange(e) {
         setParam("sortBy", e.target.value);
