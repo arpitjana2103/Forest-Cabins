@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 
 import FormError from "../../ui/FormError";
-import Button from "../../ui/styled-elements/Button";
-import FileInput from "../../ui/styled-elements/FileInput";
-import Form from "../../ui/styled-elements/Form";
-import FormRow from "../../ui/styled-elements/FormRow";
-import Input from "../../ui/styled-elements/Input";
-import Label from "../../ui/styled-elements/Label";
-import Textarea from "../../ui/styled-elements/Textarea";
+import Button from "../../ui/Button";
+import FileInput from "../../ui/FileInput";
+import Form from "../../ui/Form";
+import FormRow from "../../ui/FormRow";
+import Input from "../../ui/Input";
+import Label from "../../ui/Label";
+import Textarea from "../../ui/Textarea";
 
 import { useCreateCabin } from "./useCreateCabin";
 import useEditCabin from "./useEditCabin";

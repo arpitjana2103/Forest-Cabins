@@ -1,6 +1,6 @@
 import CabinRow from "./CabinRow";
 import useCabins from "./useCabins";
-import Spinner from "../../ui/styled-elements/Spinner";
+import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import useUrlParam from "../../hooks/useUrlParam";
 

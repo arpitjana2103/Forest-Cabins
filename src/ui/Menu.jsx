@@ -1,4 +1,4 @@
-import Button from "./styled-elements/Button";
+import Button from "./Button";
 import styled from "styled-components";
 
 const StyledMenu = styled.div`

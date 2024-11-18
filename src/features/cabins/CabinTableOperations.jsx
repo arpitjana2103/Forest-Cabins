@@ -1,4 +1,4 @@
-import TableOperations from "../../ui/styled-elements/TableOperations";
+import TableOperations from "../../ui/TableOperations";
 import Filter from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 

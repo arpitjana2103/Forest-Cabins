@@ -1,6 +1,6 @@
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
-import Heading from "./styled-elements/Heading";
+import Heading from "./Heading";
 import { createPortal } from "react-dom";
 import {
     cloneElement,

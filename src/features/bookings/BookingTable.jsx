@@ -1,7 +1,7 @@
 import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import useBookings from "./useBookings";
-import Spinner from "../../ui/styled-elements/Spinner";
+import Spinner from "../../ui/Spinner";
 
 function BookingTable() {
     const { bookings, isLoading } = useBookings();

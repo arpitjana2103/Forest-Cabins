@@ -1,4 +1,4 @@
-import Heading from "../ui/styled-elements/Heading";
+import Heading from "../ui/Heading";
 import UpdateSettingsForm from "../features/settings/UpdateSettingsForm";
 
 function Settings() {

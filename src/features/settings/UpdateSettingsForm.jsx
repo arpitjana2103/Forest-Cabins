@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import FormError from "../../ui/FormError";
-import Button from "../../ui/styled-elements/Button";
-import Form from "../../ui/styled-elements/Form";
-import FormRow from "../../ui/styled-elements/FormRow";
-import Input from "../../ui/styled-elements/Input";
-import Label from "../../ui/styled-elements/Label";
-import Spinner from "../../ui/styled-elements/Spinner";
+import Button from "../../ui/Button";
+import Form from "../../ui/Form";
+import FormRow from "../../ui/FormRow";
+import Input from "../../ui/Input";
+import Label from "../../ui/Label";
+import Spinner from "../../ui/Spinner";
 
 import useEditSettings from "./useEditSettings";
 import useSettings from "./useSettings";

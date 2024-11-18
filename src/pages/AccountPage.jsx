@@ -1,5 +1,5 @@
-import Heading from "../ui/styled-elements/Heading";
-import Row from "../ui/styled-elements/Row";
+import Heading from "../ui/Heading";
+import Row from "../ui/Row";
 
 function Account() {
     return (
