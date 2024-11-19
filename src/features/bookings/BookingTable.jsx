@@ -2,11 +2,14 @@ import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import useBookings from "./useBookings";
 import Spinner from "../../ui/Spinner";
+import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
-    const { bookings, isLoading } = useBookings();
+    const { bookings, isLoading, count } = useBookings();
+    console.log(bookings, isLoading, count);
 
     if (isLoading) return <Spinner />;
+
     return (
         <Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
             <Table.Header>
@@ -24,6 +27,10 @@ function BookingTable() {
                     <BookingRow key={booking.id} booking={booking} />
                 )}
             />
+
+            <Table.Footer>
+                <Pagination count={count} />
+            </Table.Footer>
         </Table>
     );
 }
