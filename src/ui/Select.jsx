@@ -12,6 +12,11 @@ const StyledSelect = styled.select`
     background-color: var(--color-grey-0);
     font-weight: 500;
     box-shadow: var(--shadow-sm);
+    cursor: pointer;
+`;
+
+const Option = styled.option`
+    cursor: pointer;
 `;
 
 function Select({ options, onChange, value, ...props }) {
@@ -19,9 +24,9 @@ function Select({ options, onChange, value, ...props }) {
         <StyledSelect value={value} onChange={onChange} {...props}>
             {options.map(function (option) {
                 return (
-                    <option value={option.value} key={option.value}>
+                    <Option value={option.value} key={option.value}>
                         {option.label}
-                    </option>
+                    </Option>
                 );
             })}
         </StyledSelect>

@@ -3,6 +3,7 @@ import { getCabins } from "../../services/apiCabins";
 
 export default function useCabins() {
     const {
+        isFetching,
         isLoading,
         data: cabins,
         error,
@@ -11,5 +12,5 @@ export default function useCabins() {
         queryFn: getCabins,
     });
 
-    return { isLoading, cabins, error };
+    return { isLoading: isLoading || isFetching, cabins, error };
 }
