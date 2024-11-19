@@ -79,7 +79,8 @@ function Pagination({ count }) {
     return (
         <StyledPagination>
             <P>
-                Showing <span>{(currPage - 1) * ITMES_PER_PAGE + 1}</span> to{" "}
+                [ Page : {currPage} ] Showing{" "}
+                <span>{(currPage - 1) * ITMES_PER_PAGE + 1}</span> to{" "}
                 <span>
                     {currPage * ITMES_PER_PAGE > count
                         ? count

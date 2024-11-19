@@ -18,14 +18,17 @@ export async function getBookings({ filter, sortBy, page }) {
         });
 
     // PAGE
+
     if (page) {
         // page 1, from 0, to 9
         const from = (page - 1) * ITMES_PER_PAGE;
         const to = from + ITMES_PER_PAGE - 1;
+        console.log("page ", page, "from ", from, "to ", to);
         query = query.range(from, to);
     }
 
     const { data, error, count } = await query;
+    console.log(page, data);
 
     if (error) {
         console.error(error);
