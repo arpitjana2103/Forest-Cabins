@@ -33,7 +33,7 @@ function CabinTable() {
 
     if (isLoading) return <Spinner />;
     return (
-        <Table columns="6rem 1.8fr 2.2fr 1fr 1fr 4rem">
+        <Table columns="6rem 1.8fr 2.2fr 1fr 1fr 4.8rem">
             <Table.Header>
                 <div>{null}</div>
                 <div>Cabin</div>

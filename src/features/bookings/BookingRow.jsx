@@ -3,9 +3,11 @@ import { format, isToday } from "date-fns";
 
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
+import Menu from "../../ui/Menu";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
+import { HiDotsVertical, HiEye } from "react-icons/hi";
 
 const Cabin = styled.div`
     font-size: 1.6rem;
@@ -79,6 +81,15 @@ function BookingRow({
             <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
             <Amount>{formatCurrency(totalPrice)}</Amount>
+
+            <Menu icon={<HiDotsVertical />}>
+                <Menu.Item>
+                    <span>
+                        <HiEye />
+                    </span>
+                    <span>See Details</span>
+                </Menu.Item>
+            </Menu>
         </Table.Row>
     );
 }

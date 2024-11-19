@@ -1,1 +1,1 @@
-export const ITMES_PER_PAGE = 3;
+export const ITMES_PER_PAGE = 6;
