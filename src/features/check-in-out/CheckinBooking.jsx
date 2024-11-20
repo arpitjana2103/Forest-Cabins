@@ -17,6 +17,7 @@ import useBooking from "../bookings/useBooking";
 import { useCheckin } from "./useCheckin";
 
 import { formatCurrency } from "../../utils/helpers";
+import useSettings from "../settings/useSettings";
 
 const HeadingGroup = styled.div`
     display: flex;
@@ -37,6 +38,8 @@ function CheckinBooking() {
     const { isLoading, booking = {} } = useBooking();
     const [confirmPaid, setConfirmPaid] = useState(false);
     const { checkin, isCheckingIn } = useCheckin();
+    const [addBreakfast, setAddBreakfast] = useState(false);
+    const { isLoading: isLoadingSettings, settings = {} } = useSettings();
 
     useEffect(
         function () {
@@ -61,13 +64,29 @@ function CheckinBooking() {
         "checked-out": "silver",
     };
     const checkedInAlready = status === "checked-in";
+    const checkedOutAlready = status === "checked-out";
+    const totalBreakFastPrice = settings?.breakfastPrice * numGuests;
 
     function handleCheckin() {
         if (!confirmPaid) return toast.error("Payment not confirmed !");
-        checkin(bookingId);
+        if (addBreakfast) {
+            checkin({
+                bookingID: bookingId,
+                breakfast: {
+                    hasBreakfast: true,
+                    extraPrice: totalBreakFastPrice,
+                    totalPrice: totalPrice + totalBreakFastPrice,
+                },
+            });
+        } else {
+            checkin({
+                bookingID: bookingId,
+                breakfast: {},
+            });
+        }
     }
 
-    if (isLoading) return <Spinner />;
+    if (isLoading || isLoadingSettings) return <Spinner />;
     return (
         <>
             <Row type="horizontal">
@@ -82,34 +101,62 @@ function CheckinBooking() {
 
             <BookingDataBox booking={booking} />
 
+            {!hasBreakfast && (
+                <Box>
+                    <Checkbox
+                        checked={addBreakfast}
+                        onChange={() => {
+                            setAddBreakfast((state) => !state);
+                            setConfirmPaid(false);
+                        }}
+                        id="breakfast"
+                    >
+                        <span>
+                            Want to add breakfast of{" "}
+                            {formatCurrency(totalBreakFastPrice)} ({" "}
+                            {formatCurrency(settings.breakfastPrice)} x{" "}
+                            {numGuests} ) ?
+                        </span>
+                    </Checkbox>
+                </Box>
+            )}
             <Box>
                 <Checkbox
                     checked={confirmPaid}
                     onChange={() => setConfirmPaid((state) => !state)}
-                    disabled={booking.isPaid || isCheckingIn}
-                    id={bookingId}
+                    disabled={
+                        (booking.isPaid && booking.hasBreakfast) || isCheckingIn
+                    }
+                    id="isPaid"
                 >
                     <span>
                         I confirm that {guests.fullName} has paid the total
-                        amount of {formatCurrency(totalPrice)}
+                        amount of{" "}
+                        {addBreakfast
+                            ? `${formatCurrency(
+                                  totalPrice + totalBreakFastPrice
+                              )} ( ${formatCurrency(
+                                  totalPrice
+                              )} + ${formatCurrency(totalBreakFastPrice)} )`
+                            : formatCurrency(totalPrice)}
                     </span>
                 </Checkbox>
             </Box>
 
             <ButtonGroup>
-                <Button
-                    $variation={
-                        confirmPaid && !checkedInAlready
-                            ? "primary"
-                            : "secondary"
-                    }
-                    onClick={handleCheckin}
-                    disabled={checkedInAlready || isCheckingIn}
-                >
-                    {checkedInAlready
-                        ? "Checked in Already "
-                        : `Check in booking #${bookingId}`}
-                </Button>
+                {!checkedInAlready && !checkedOutAlready && (
+                    <Button
+                        $variation={
+                            confirmPaid && !checkedInAlready
+                                ? "primary"
+                                : "secondary"
+                        }
+                        onClick={handleCheckin}
+                        disabled={isCheckingIn}
+                    >
+                        Check in booking #{bookingId}
+                    </Button>
+                )}
                 <Button $variation="secondary" onClick={moveBack}>
                     Back
                 </Button>
