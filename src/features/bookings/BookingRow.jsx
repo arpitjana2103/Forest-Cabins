@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
@@ -8,6 +9,7 @@ import Menu from "../../ui/Menu";
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import { HiDotsVertical, HiEye } from "react-icons/hi";
+import { HiArrowDownOnSquare } from "react-icons/hi2";
 
 const Cabin = styled.div`
     font-size: 1.6rem;
@@ -56,6 +58,8 @@ function BookingRow({
         "checked-out": "silver",
     };
 
+    const navigate = useNavigate();
+
     return (
         <Table.Row>
             <Cabin>{cabinName}</Cabin>
@@ -83,12 +87,22 @@ function BookingRow({
             <Amount>{formatCurrency(totalPrice)}</Amount>
 
             <Menu icon={<HiDotsVertical />}>
-                <Menu.Item>
+                <Menu.Item onClick={() => navigate(`/booking/${bookingId}`)}>
                     <span>
                         <HiEye />
                     </span>
                     <span>See Details</span>
                 </Menu.Item>
+                {status === "unconfirmed" && (
+                    <Menu.Item
+                        onClick={() => navigate(`/checking/${bookingId}`)}
+                    >
+                        <span>
+                            <HiArrowDownOnSquare />
+                        </span>
+                        <span>Check in</span>
+                    </Menu.Item>
+                )}
             </Menu>
         </Table.Row>
     );

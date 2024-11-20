@@ -17,6 +17,8 @@ import UsersPage from "./pages/UsersPage";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import AppLayout from "./ui/AppLayout";
+import BookingPage from "./pages/BookingPage";
+import CheckinPage from "./pages/CheckinPage";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -43,6 +45,8 @@ const router = createBrowserRouter(
                 { path: "/dashboard", element: <DashboardPage /> },
                 { path: "/settings", element: <SettingsPage /> },
                 { path: "/bookings", element: <BookingsPage /> },
+                { path: "/booking/:bookingID", element: <BookingPage /> },
+                { path: "/checking/:bookingID", element: <CheckinPage /> },
                 { path: "/account", element: <AccountPage /> },
                 { path: "/cabins", element: <CabinsPage /> },
                 { path: "/users", element: <UsersPage /> },

@@ -63,6 +63,7 @@ const GlobalStyles = createGlobalStyle`
         padding: 0;
         margin: 0;
         scroll-behavior: smooth;
+        cursor: inherit;
 
         /* Scroll-Bar stylling  */
         scrollbar-color: var(--color-grey-400) transparent;
