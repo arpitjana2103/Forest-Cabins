@@ -56,7 +56,7 @@ const Dropdown = styled.div.attrs({
     top: 4.3rem;
     /* left: 0; */
     right: 0;
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-sm);
     background-color: var(--color-grey-0);
     width: fit-content;
     z-index: 1;

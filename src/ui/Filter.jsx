@@ -40,7 +40,12 @@ function Filter({ filterField, options }) {
     const currFilter = readParam(filterField) || options.at(0).value;
 
     function handleClick(value) {
-        return () => setParam(filterField, value);
+        return () => {
+            if (readParam("page")) {
+                setParam("page", 1);
+            }
+            setParam(filterField, value);
+        };
     }
 
     return (
