@@ -9,8 +9,15 @@ import Menu from "../../ui/Menu";
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import { HiDotsVertical, HiEye } from "react-icons/hi";
-import { HiArrowDownOnSquare, HiArrowUpOnSquare } from "react-icons/hi2";
+import {
+    HiArrowDownOnSquare,
+    HiArrowUpOnSquare,
+    HiTrash,
+} from "react-icons/hi2";
 import { useCheckout } from "../check-in-out/useCheckout";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import useDeleteBooking from "./useDeleteBooking";
 
 const Cabin = styled.div`
     font-size: 1.6rem;
@@ -39,6 +46,12 @@ const Amount = styled.div`
     font-weight: 500;
 `;
 
+const statusToTagName = {
+    unconfirmed: "blue",
+    "checked-in": "green",
+    "checked-out": "silver",
+};
+
 function BookingRow({
     booking: {
         id: bookingId,
@@ -53,14 +66,9 @@ function BookingRow({
         cabins: { name: cabinName },
     },
 }) {
-    const statusToTagName = {
-        unconfirmed: "blue",
-        "checked-in": "green",
-        "checked-out": "silver",
-    };
-
     const navigate = useNavigate();
     const { checkout, isCheckingOut } = useCheckout();
+    const { isDeleting, deleteBooking } = useDeleteBooking();
 
     return (
         <Table.Row>
@@ -118,6 +126,26 @@ function BookingRow({
                         <span>Check out</span>
                     </Menu.Item>
                 )}
+                <Modal>
+                    <Modal.Open content="booking-delete">
+                        <Menu.Item>
+                            <span>
+                                <HiTrash />
+                            </span>
+                            <span>Delete</span>
+                        </Menu.Item>
+                    </Modal.Open>
+                    <Modal.Window
+                        content="booking-delete"
+                        title={`Delete Booking-#${bookingId}`}
+                    >
+                        <ConfirmDelete
+                            resourceName={`Booking - #${bookingId}`}
+                            onConfirm={() => deleteBooking(bookingId)}
+                            disabled={isDeleting}
+                        />
+                    </Modal.Window>
+                </Modal>
             </Menu>
         </Table.Row>
     );
