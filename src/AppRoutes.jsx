@@ -19,6 +19,7 @@ import { Toaster } from "react-hot-toast";
 import AppLayout from "./ui/AppLayout";
 import BookingPage from "./pages/BookingPage";
 import CheckinPage from "./pages/CheckinPage";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -39,14 +40,18 @@ If you want to use React Query v5, there are only two small things to change in 
 const router = createBrowserRouter(
     [
         {
-            element: <AppLayout />,
+            element: (
+                <ProtectedRoute>
+                    <AppLayout />
+                </ProtectedRoute>
+            ),
             children: [
                 { path: "/", element: <Navigate replace to="dashboard" /> },
+                { path: "/checking/:bookingID", element: <CheckinPage /> },
+                { path: "/booking/:bookingID", element: <BookingPage /> },
                 { path: "/dashboard", element: <DashboardPage /> },
                 { path: "/settings", element: <SettingsPage /> },
                 { path: "/bookings", element: <BookingsPage /> },
-                { path: "/booking/:bookingID", element: <BookingPage /> },
-                { path: "/checking/:bookingID", element: <CheckinPage /> },
                 { path: "/account", element: <AccountPage /> },
                 { path: "/cabins", element: <CabinsPage /> },
                 { path: "/users", element: <UsersPage /> },

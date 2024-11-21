@@ -137,7 +137,7 @@ function BookingRow({
                     </Modal.Open>
                     <Modal.Window
                         content="booking-delete"
-                        title={`Delete Booking-#${bookingId}`}
+                        title={`Delete Booking #${bookingId}`}
                     >
                         <ConfirmDelete
                             resourceName={`Booking - #${bookingId}`}

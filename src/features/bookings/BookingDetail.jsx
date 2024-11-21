@@ -71,7 +71,7 @@ function BookingDetail() {
                     </Modal.Open>
                     <Modal.Window
                         content="delete-booking"
-                        title={`Delete Booking-#${id}`}
+                        title={`Delete Booking #${id}`}
                     >
                         <ConfirmDelete
                             resourceName={`Booking - #${id}`}
