@@ -9,7 +9,7 @@ export default function useLoggedInUser() {
 
     return {
         isLoading,
-        user,
+        user: user || {},
         isAuthenticated: user?.role === "authenticated",
     };
 }

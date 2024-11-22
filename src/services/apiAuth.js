@@ -1,7 +1,5 @@
 import supabase from "./supabase";
-
-const defaultAvatar =
-    "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=";
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 
 export async function signup({ fullName, email, password }) {
     console.log(fullName, email, password);
@@ -50,4 +48,38 @@ export async function getLoggedInUser() {
 export async function logout() {
     const { error } = await supabase.auth.signOut();
     if (error) throw new Error(error);
+}
+
+export async function updateCurrentUser({ password, fullName, avatar }) {
+    // 1. Update password or fullName
+
+    let updateData;
+    if (password) updateData = { password };
+    if (fullName) updateData = { data: { fullName } };
+
+    const { data, error } = await supabase.auth.updateUser(updateData);
+
+    if (error) throw new Error(error.message);
+    if (!avatar) return data;
+
+    // 2. Upload the avatar image
+    const fileName = `avatar-${data.user.id}-${Date.now()}`;
+    const { error: storageError } = await supabase.storage
+        .from("avatars")
+        .upload(fileName, avatar);
+
+    if (storageError) throw new Error(storageError.message);
+
+    // 3. Update avatar in the user
+    const { data: updatedUser, error: error2 } = await supabase.auth.updateUser(
+        {
+            data: {
+                // https://cwxqirrmgdqdjwqoznla.supabase.co/storage/v1/object/public/avatars/avatar-929578d4-9be2-4494-b390-f2f3c6e38082-1732288767020
+                avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`,
+            },
+        }
+    );
+
+    if (error2) throw new Error(error2.message);
+    return updatedUser;
 }
