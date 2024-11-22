@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import useLoggedInUser from "../features/authentication/useLoggedInUser";
 import Spinner from "./Spinner";
-import { Navigate, replace, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { Navigate } from "react-router-dom";
 
 const FullPage = styled.div`
     height: 100vh;
