@@ -20,6 +20,8 @@ import AppLayout from "./ui/AppLayout";
 import BookingPage from "./pages/BookingPage";
 import CheckinPage from "./pages/CheckinPage";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import { DarkModeProvider } from "./context/DarkModeContext";
+import GlobalStyles from "./styles/GlobalStyles";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -73,33 +75,36 @@ const router = createBrowserRouter(
 
 function AppRoutes() {
     return (
-        <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools initialIsOpen={false} />
-            <RouterProvider
-                router={router}
-                future={{ v7_startTransition: true }}
-            />
-            <Toaster
-                position="top-center"
-                gutter={12}
-                containerStyle={{ margin: "8px" }}
-                toastOptions={{
-                    success: {
-                        duration: 3000,
-                    },
-                    error: {
-                        duration: 5000,
-                    },
-                    style: {
-                        fontSize: "16px",
-                        maxWidth: "500px",
-                        padding: "16px 24px",
-                        backgroundColor: "var(--color-grey-0)",
-                        color: "var(--color-gery-700)",
-                    },
-                }}
-            />
-        </QueryClientProvider>
+        <DarkModeProvider>
+            <GlobalStyles />
+            <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools initialIsOpen={false} />
+                <RouterProvider
+                    router={router}
+                    future={{ v7_startTransition: true }}
+                />
+                <Toaster
+                    position="top-center"
+                    gutter={12}
+                    containerStyle={{ margin: "8px" }}
+                    toastOptions={{
+                        success: {
+                            duration: 3000,
+                        },
+                        error: {
+                            duration: 5000,
+                        },
+                        style: {
+                            fontSize: "16px",
+                            maxWidth: "500px",
+                            padding: "16px 24px",
+                            backgroundColor: "var(--color-grey-0)",
+                            color: "var(--color-gery-700)",
+                        },
+                    }}
+                />
+            </QueryClientProvider>
+        </DarkModeProvider>
     );
 }
 

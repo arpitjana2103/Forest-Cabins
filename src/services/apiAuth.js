@@ -58,6 +58,7 @@ export async function updateCurrentUser({ password, fullName, avatar }) {
     if (fullName) updateData = { data: { fullName } };
 
     const { data, error } = await supabase.auth.updateUser(updateData);
+    console.log(error);
 
     if (error) throw new Error(error.message);
     if (!avatar) return data;
@@ -74,7 +75,6 @@ export async function updateCurrentUser({ password, fullName, avatar }) {
     const { data: updatedUser, error: error2 } = await supabase.auth.updateUser(
         {
             data: {
-                // https://cwxqirrmgdqdjwqoznla.supabase.co/storage/v1/object/public/avatars/avatar-929578d4-9be2-4494-b390-f2f3c6e38082-1732288767020
                 avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`,
             },
         }

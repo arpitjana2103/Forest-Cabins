@@ -5,23 +5,51 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
 import { useUpdateUser } from "./useUpdateUser";
+import Label from "../../ui/Label";
+import FormError from "../../ui/FormError";
+import { useLogout } from "./useLogout";
+import toast from "react-hot-toast";
+import Emoji from "../../ui/Emoji";
 
 function UpdatePasswordForm() {
     const { register, handleSubmit, formState, getValues, reset } = useForm();
+    const { logout, isLoggingOut } = useLogout();
     const { errors } = formState;
+
+    if (isLoggingOut) {
+        toast(() => {
+            return (
+                <p>
+                    <span>
+                        <Emoji emoji="🙏" />
+                    </span>
+                    &nbsp;&nbsp;&nbsp;
+                    <span>Please login to continue !</span>
+                </p>
+            );
+        });
+    }
 
     const { updateUser, isUpdating } = useUpdateUser();
 
     function onSubmit({ password }) {
-        updateUser({ password }, { onSuccess: reset });
+        updateUser(
+            { password },
+            {
+                onSuccess: () => {
+                    reset();
+                    setTimeout(function () {
+                        logout();
+                    }, 3500);
+                },
+            }
+        );
     }
 
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>
-            <FormRow
-                label="Password (min 8 characters)"
-                error={errors?.password?.message}
-            >
+            <FormRow>
+                <Label htmlFor="password">Password</Label>
                 <Input
                     type="password"
                     id="password"
@@ -35,12 +63,11 @@ function UpdatePasswordForm() {
                         },
                     })}
                 />
+                <FormError error={errors?.password?.message} />
             </FormRow>
 
-            <FormRow
-                label="Confirm password"
-                error={errors?.passwordConfirm?.message}
-            >
+            <FormRow>
+                <Label htmlFor="passwordConfirm">Password Confirm</Label>
                 <Input
                     type="password"
                     autoComplete="new-password"
@@ -53,12 +80,15 @@ function UpdatePasswordForm() {
                             "Passwords need to match",
                     })}
                 />
+                <FormError error={errors?.passwordConfirm?.message} />
             </FormRow>
             <FormRow>
                 <Button onClick={reset} type="reset" $variation="secondary">
                     Cancel
                 </Button>
-                <Button disabled={isUpdating}>Update password</Button>
+                <Button disabled={isUpdating}>
+                    {isUpdating ? "Updating.." : "Update password"}
+                </Button>
             </FormRow>
         </Form>
     );
