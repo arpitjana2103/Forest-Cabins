@@ -54,7 +54,7 @@ export async function getBooking(id) {
 export async function getBookingsAfterDate(date) {
     const { data, error } = await supabase
         .from("bookings")
-        .select("created_at, totalPrice, extraPrice")
+        .select("created_at, totalPrice, extraPrice, isPaid")
         .gte("created_at", date)
         .lte("created_at", getToday({ end: true }));
 
@@ -77,7 +77,7 @@ export async function getStaysAfterDate(date) {
 
     if (error) {
         console.error(error);
-        throw new Error("Bookings could not get loaded");
+        throw new Error("Stays could not get loaded");
     }
 
     return data;

@@ -7,8 +7,6 @@ import SpinnerMini from "../../ui/SpinnerMini";
 function Logout() {
     const { logout, isLoggingOut } = useLogout();
 
-    console.log("isLoggingOut : ", isLoggingOut);
-
     return (
         <ButtonIcon onClick={() => logout()}>
             {isLoggingOut ? (
