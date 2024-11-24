@@ -7,6 +7,7 @@ import { subtractDates } from "../utils/helpers";
 import { bookings } from "./data-bookings";
 import { cabins } from "./data-cabins";
 import { guests } from "./data-guests";
+import toast from "react-hot-toast";
 
 // const originalSettings = {
 //   minBookingLength: 3,
@@ -14,6 +15,8 @@ import { guests } from "./data-guests";
 //   maxGuestsPerBooking: 10,
 //   breakfastPrice: 15,
 // };
+
+const foodPrice = 999;
 
 async function deleteGuests() {
     const { error } = await supabase.from("guests").delete().gt("id", 0);
@@ -59,7 +62,7 @@ async function createBookings() {
         const numNights = subtractDates(booking.endDate, booking.startDate);
         const cabinPrice = numNights * (cabin.regularPrice - cabin.discount);
         const extraPrice = booking.hasBreakfast
-            ? numNights * 15 * booking.numGuests
+            ? numNights * foodPrice * booking.numGuests
             : 0; // hardcoded breakfast price
         const totalPrice = cabinPrice + extraPrice;
 
@@ -116,6 +119,7 @@ function Uploader() {
         await createBookings();
 
         setIsLoading(false);
+        toast.success("All uploaded Successfully");
     }
 
     async function uploadBookings() {
@@ -123,6 +127,7 @@ function Uploader() {
         await deleteBookings();
         await createBookings();
         setIsLoading(false);
+        toast.success("Bookings uploaded Successfully");
     }
 
     return (
@@ -138,7 +143,7 @@ function Uploader() {
                 gap: "8px",
             }}
         >
-            <h3>SAMPLE DATA</h3>
+            <h3 style={{ color: "#374151" }}>SAMPLE DATA</h3>
 
             <Button onClick={uploadAll} disabled={isLoading}>
                 Upload ALL

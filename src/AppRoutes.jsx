@@ -49,7 +49,7 @@ const router = createBrowserRouter(
             ),
             children: [
                 { path: "/", element: <Navigate replace to="dashboard" /> },
-                { path: "/checking/:bookingID", element: <CheckinPage /> },
+                { path: "/checkin/:bookingID", element: <CheckinPage /> },
                 { path: "/booking/:bookingID", element: <BookingPage /> },
                 { path: "/dashboard", element: <DashboardPage /> },
                 { path: "/settings", element: <SettingsPage /> },

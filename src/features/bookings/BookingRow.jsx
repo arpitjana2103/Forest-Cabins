@@ -105,7 +105,7 @@ function BookingRow({
                 </Menu.Item>
                 {status === "unconfirmed" && (
                     <Menu.Item
-                        onClick={() => navigate(`/checking/${bookingId}`)}
+                        onClick={() => navigate(`/checkin/${bookingId}`)}
                     >
                         <span>
                             <HiArrowDownOnSquare />
