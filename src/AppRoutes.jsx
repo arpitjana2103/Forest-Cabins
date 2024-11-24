@@ -22,6 +22,8 @@ import CheckinPage from "./pages/CheckinPage";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import { DarkModeProvider } from "./context/DarkModeContext";
 import GlobalStyles from "./styles/GlobalStyles";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./ui/ErrorFallback";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -43,9 +45,14 @@ const router = createBrowserRouter(
     [
         {
             element: (
-                <ProtectedRoute>
-                    <AppLayout />
-                </ProtectedRoute>
+                <ErrorBoundary
+                    FallbackComponent={ErrorFallback}
+                    onReset={() => window.location.replace("/")}
+                >
+                    <ProtectedRoute>
+                        <AppLayout />
+                    </ProtectedRoute>
+                </ErrorBoundary>
             ),
             children: [
                 { path: "/", element: <Navigate replace to="dashboard" /> },
